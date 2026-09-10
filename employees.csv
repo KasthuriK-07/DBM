@@ -1,0 +1,26 @@
+emp_id,emp_name,department,job_role,salary,experience,location,joining_year
+101,Arun,IT,"Python Developer",65000.00,3,Bangalore,2022
+102,Priya,HR,"HR Executive",45000.00,2,Chennai,2023
+103,Rahul,IT,"Data Engineer",75000.00,5,Bangalore,2020
+104,Sneha,Finance,Accountant,55000.00,4,Mumbai,2021
+105,Kiran,IT,"Python Developer",70000.00,4,Hyderabad,2021
+106,Divya,HR,Recruiter,50000.00,3,Bangalore,2022
+107,Vijay,Finance,"Financial Analyst",65000.00,5,Chennai,2020
+108,Anjali,IT,"Data Scientist",85000.00,6,Bangalore,2019
+109,Ravi,Sales,"Sales Executive",40000.00,2,Mumbai,2023
+110,Meena,Sales,"Sales Manager",70000.00,7,Bangalore,2018
+111,Suresh,IT,"DevOps Engineer",80000.00,6,Chennai,2019
+112,Pooja,HR,"HR Manager",75000.00,8,Hyderabad,2017
+113,Ajay,Finance,Accountant,52000.00,3,Bangalore,2022
+114,Nisha,Sales,"Sales Executive",42000.00,2,Chennai,2023
+115,Vikram,IT,"Software Engineer",72000.00,4,Hyderabad,2021
+116,Deepak,Finance,"Financial Analyst",68000.00,6,Bangalore,2019
+117,Kavya,HR,"HR Executive",48000.00,2,Mumbai,2023
+118,Manoj,Sales,"Sales Executive",45000.00,3,Hyderabad,2022
+119,Swathi,IT,"Cloud Engineer",90000.00,7,Bangalore,2018
+120,Ramesh,Finance,"Finance Manager",82000.00,9,Chennai,2016
+121,Neha,HR,"HR Manager",78000.00,7,Bangalore,2018
+122,Sanjay,IT,"Backend Developer",68000.00,3,Chennai,2022
+123,Asha,Sales,"Sales Executive",43000.00,2,Bangalore,2023
+124,Mohan,Finance,Accountant,57000.00,4,Hyderabad,2021
+125,Lakshmi,IT,"Data Analyst",62000.00,3,Mumbai,2022
