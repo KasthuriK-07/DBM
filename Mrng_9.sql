@@ -250,10 +250,50 @@ set SQL_SAFE_UPDATES=1; -- Enable Mode -We can use only pk to update
 
 update emp set emp_status="Active";
 update emp set emp_dept="IT" where place="Bangalore";
+update emp set emp_dept="HR" where place="Chennai";
+update emp set emp_dept="Sales" where place="Hyderabad";
 -- HR In Chennai,Sales in Hyderabad
+update emp set emp_salary=38000 where emp_age between 25 and 28;
+update emp set emp_salary=45000 where 
+emp_dept="HR" and emp_age>29;
+update emp set emp_salary=55000 where 
+emp_dept="Sales" or emp_age>29;
+update emp set emp_salary=65000 where 
+place not in ("Hyderabad","Bangalore");
+
+
+-- Delete-Apply condition to delete
+-- Drop-Entire table and data deleted
+-- Truncate-Only Data deleted structure will remain
+delete from emp where e_name="Sruthi";
+delete from emp where emp_age>30 and emp_dept="IT";
 select * from emp;
+show tables;
+select * from employees;
+-- Retrieve specific column
+select emp_name,salary,department from employees;
+-- Retrieve info who is working in IT dept
+select * from employees where department="IT";
+-- Find the employee info who is working in IT and having salary
+-- greater than 65000
+select * from employees where department="IT" and salary>65000;
+-- Find the employee info who is working sales atleast  7yrs exp
+select * from employees where
+department="Sales" and experience>=7;
 
-
+/* Task
+	Using Alter
+			-Add University,Marks,Grade
+            -Rename Table name
+            -Drop joining_yr
+	Update all the university with VTU
+    Dept in CS update marks=90
+    Dept in IT update marks=80
+    Dept in AI update marks=85
+    
+    Delete Few records try using sql_safe_updates enable and
+    disable
+	*/
 
 
 
