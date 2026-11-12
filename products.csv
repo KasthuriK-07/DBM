@@ -1,0 +1,26 @@
+product_id,product_name,category,brand,price,quantity
+1,Laptop,Electronics,Dell,65000.00,10
+2,Mobile,Electronics,Samsung,30000.00,25
+3,Tablet,Electronics,Apple,45000.00,15
+4,Headphones,Electronics,Sony,5000.00,40
+5,"Smart Watch",Electronics,Noise,3500.00,30
+6,T-Shirt,Clothing,Nike,1500.00,50
+7,Jeans,Clothing,Levis,2500.00,35
+8,Shirt,Clothing,"Peter England",2000.00,45
+9,Jacket,Clothing,Puma,4000.00,20
+10,Shoes,Clothing,Adidas,5500.00,25
+11,"Office Chair",Furniture,IKEA,8000.00,12
+12,"Study Table",Furniture,IKEA,12000.00,8
+13,Sofa,Furniture,Nilkamal,35000.00,5
+14,Bed,Furniture,Godrej,25000.00,7
+15,Cupboard,Furniture,Godrej,18000.00,10
+16,"SQL Book",Books,Pearson,1200.00,30
+17,"Python Book",Books,OReilly,1500.00,25
+18,"Data Science Book",Books,"McGraw Hill",1800.00,20
+19,Notebook,Books,NULL,100.00,100
+20,"Java Book",Books,Pearson,1400.00,18
+21,Chocolate,Food,Cadbury,100.00,200
+22,Biscuits,Food,Britannia,50.00,150
+23,Coffee,Food,Nescafe,300.00,60
+24,Chips,Food,Lays,20.00,100
+25,Juice,Food,Tropicana,150.00,80
