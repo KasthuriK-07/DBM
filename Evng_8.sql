@@ -208,6 +208,148 @@ select * from employee;
         -- Truncate
         -- Drop
 
+use ecommerce;
+show tables;
+select * from employees;
+-- 1.Find the employees info who is getting salary between 65000 to 80000
+select emp_name,department,salary from employees
+where salary between 65000 and 80000;
+
+-- 2.Find the employees who is working in IT department
+select * from employees where department="IT";
+
+-- 3.Find the employees who is working in Finance having salary greater
+-- than 75000
+select * from employees where department="Finance"
+and salary>75000;
+
+-- 4.Find the employess having atleast salary greater 90000 in HR dept
+select * from employees where department="HR" 
+or salary>90000;
+
+-- 5.Find the employees who is working in Chennai and Bangalore
+select * from employees where location in ("Chennai","Bangalore");
+
+-- 6.Find the employees except IT,Sales
+select * from employees where department not in ("IT","Sales");
+
+-- 7.Find the employee name starting with S
+select * from employees where emp_name like 'S%'; -- Start
+
+-- 8.Find the employee name ends with i
+select * from employees where emp_name like '%i'; -- End
+
+-- Group By
+-- Aggregate Functions
+-- Count,Sum,Min,Max,Avg
+
+-- 9.Find the highest salary in employee info
+select max(salary) as Max_Sal from employees;
+
+-- 10.Find the lowest experience in employee
+select min(experience) as Minimum_Exp from employees;
+-- 11.Find the avg salary
+select avg(salary) from employees;
+-- 12.Find the count of employees
+select count(*) from employees;
+-- 13.Find the sum of experience
+select sum(experience) as Tot_Exp from employees;
+
+-- Group by Clause it will support the data to display in select clause
+-- Which we are grouping that column name only we can display in select
+-- 14.Find the no of employees in each dept
+select department,count(*) as Dept_Count 
+from employees group by department;
+
+-- 15.Find the no of employees in each location
+select location,count(*)  as Total_Employee 
+from employees group by location;
+
+-- 16.Find the maximum salary in each department
+select department,max(salary) from employees
+group by department;
+
+-- 17.Find the maximum experience in each location
+select location,max(experience) 
+from employees group by location;
+
+-- 18.Find the avg sal in each department
+select department,avg(salary) from
+ employees group by department;
+-- 19.Find the sum of salary in each dept
+select department,sum(salary) from
+ employees group by department;
+-- 20.Find minimum salary in each dept
+select department, min(salary) from employees group by department;
+
+-- Order By For sorting the data-Ascending and Descending
+-- 21.Find the employee info from highest salary to lowest salary
+select * from employees order by salary asc; -- Default it will take ascending
+select * from employees order by salary desc;
+-- 22.Find the top 5 highest salary employee info
+select * from employees order by salary desc limit 5;
+-- 23.Find the top 3 highest salary employee info
+select * from employees order by salary desc limit 3;
+-- 24.Find the unique department in employee table
+select distinct(department) from employees;
+-- 25.Find the highest salary employee info
+select * from employees order by salary desc limit 1;
+-- 26.Find the 2nd highest salary employee info
+--  offset-skip the records
+-- Ex.limit 1 offset 1-1st row it will ignore,2nd row data will get
+select * from employees order by salary desc limit 1 offset 1;
+-- 27.Find the 5th highest salary employee info
+select * from employees order by salary desc limit 1 offset 4;
+
+-- Having Clause
+-- 28.Find the no of employee in each dept having count greater than 5
+select department,count(*) as Count from employees
+group by department
+having Count>5;
+
+-- 29.Find the avg salary in each dept greater than 60000
+select department,avg(salary) as Avg_Sal from employees
+group by department having Avg_Sal>60000;
+
+-- 30.Find the no of employees in dept and location
+select location,department,count(*) as Emp_Count from
+employees group by location,department;
+
+-- 31. Display the highest no of employees in dept and location 
+select location,department,count(*) as Emp_Count from
+employees group by location,department
+order by Emp_Count desc;
+
+-- 32.Find the max salary in each dept order by desc having sal greater
+-- than 75000
+select department,max(salary) as Max_Sal 
+from employees group by department
+having Max_Sal>75000 order by Max_Sal desc;
+
+select department,max(salary) as max_sal from employees
+ group by department having max_sal>65000 order by max_sal desc;
+ 
+-- 33.Find the top most
+-- max salary in each dept order by desc having sal greater
+-- than 75000
+
+select department,max(salary) as Max_Sal 
+from employees group by department
+having Max_Sal>75000 order by Max_Sal desc limit 1;
+
+-- 33.Find the 2nd  top most
+-- max salary in  dept order by desc having sal greater
+-- than 75000
+
+select department,max(salary) as Max_Sal 
+from employees group by department
+having Max_Sal>75000 order by Max_Sal desc limit 1 offset 1;
+
+select * from product;
+
+
+
+
 
 
 
