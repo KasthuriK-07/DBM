@@ -207,3 +207,41 @@ inner join department d on s.dept_id=d.dept_id
 order by s.s_marks desc limit 1 offset 1;
 
 
+-- 1.Find the product price range b/w 8000 to 25000
+-- 2.Find the product info in category Electronics
+-- 3.Find the max price 
+-- 4.Find the  minimum qty
+-- 5.Find the sum of price
+-- 6.Find the count of product
+-- 7.Find the avg price
+-- 8.Display the product info from desc order
+use employee_info;
+select * from employees;
+
+select department,job_role,salary, 
+count(*) over(partition by department)
+as Emp_Count from employees;
+
+select emp_name,department,salary,experience,
+row_number() over(order by salary desc) as
+Row_Num from employees;
+
+select emp_name,department,salary,experience,
+rank() over(order by salary desc) as
+Row_Num from employees;
+
+select emp_name,department,salary,experience,
+dense_rank() over(order by salary desc) as
+Row_Num from employees;
+
+select * from(select emp_name,department,salary,experience,
+row_number() over(order by salary desc) as
+Row_Num from employees) e
+where Row_Num=1;
+
+use employee_info;
+select * from student;
+select * from department;
+select s.s_name,d.dept_name from student s
+cross join department d;
+select * from student;

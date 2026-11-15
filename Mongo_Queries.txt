@@ -1,0 +1,75 @@
+
+MONGO Queries-
+	Follow a mango query language-mql
+	Everything is a object
+	Bson-17mb
+
+	Ex:Db.insertOne({'name':'Kasthuri','id':90})
+	
+	$gt-Greater>,$gte- Greater than equalto (>=),$lt- Less than<,$ne-Not Equal!=
+
+	1.Create Database
+		-Use DB_Name
+	2.Show collection-Display the table
+	3.Create Collection
+		-db.createCollection('student');
+	4.Check data is present or not
+		-db.student.find()
+	5.Insert data
+		-db.student.insertOne({'name':'Kasthuri','id':10})
+	6.Insert Many values
+		-db.student.insertMany([{},{},{}])
+	7.Add Column
+		-db.student.updateOne({'name':'Kasthuri'},{$set:{'language':['Python','ML']}
+	8.Update Many
+		-db.student.updateMany({'City':'Bangalore},{$set:{'score':97})
+	9.db.student.updateOne({},{$set:{'age':45})-It takes automatically 1st row
+	10.db.student.updateMany({},{$unset:{'city':'Bangalore'})-Unset city wherever it present
+	11.db.student.updateMany({},{$set:{'city':'Bangalore'})-set city to all entries
+	12.Delete one Data
+		-db.student.deleteOne({})
+	12.Delete Many Data
+		-db.student.deleteMany({})
+	13.unset values as empty
+		-db.student.updateMany({},{$set:{'city':''})
+	14.Find
+		-db.student.find()-TO display all
+	15.Findone
+		-db.student.findOne({score:{$gt:80}})
+	Greater than-gt,gte
+	Less than-lt,lte
+	Not Equal-ne
+	equal-eq
+	16.And
+		-db.student.find({$and:[
+				{name:'Kasthuri'},{score:{$gt:80}}]})	
+	17.Sort the results and Limit the results
+	18.In 
+		-db.student.find({city:{$in:['Bangalore','Chennai']}})
+	19.sort
+		-db.student.find().sort({'score':1})-Ascending
+		-db.student.find().sort({'score':-1}).limit(2)-Descending
+	20.To check field is present or not
+		-db.student.find('brand':{$exists:true})
+	21.Not null data
+		-db.student.find('brand':{$ne:null}})
+
+	22.Group By ,Aggregate
+		-db.employee.aggregate([{$group:{_id:"$emp_dept",avg_salary:{$avg:"$emp_salary"}}}])
+	23.Find the 2nd highest salary
+		-db.stud.find().sort({"Salary":-1}.skip(1).limit(1)
+	24.Find the 1st highest Salary
+		db.stud.find().sort({"Salary":-1}.limit(1)
+	25.Rename Name to emp_name
+		db.stud.updateOne({"Id":10},{$rename:{"Name":"Emp_Name"}})
+	25.Increase Salary 5000
+		db.stud.updateOne({"Id":10},{$inc:{"Salary":5000}})
+	26.Upsert-Update and Insert
+		db.student.updateOne({"Id:60},{"$set:{"Name":"Anu",
+		Place:"Bangalore"}},{upsert:true})
+
+
+
+
+
+db.student.insertMany([{"Name":"Tony","Salary":90000},{"Name":"Sanjay","Salary":70000}])
