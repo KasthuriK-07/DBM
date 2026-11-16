@@ -346,9 +346,169 @@ from employees group by department
 having Max_Sal>75000 order by Max_Sal desc limit 1 offset 1;
 
 select * from product;
+show tables;
+select * from product_db;
+use ecommerce;
+-- SubQueries
+-- Query Inside the another Query
+
+-- Find the highest employee salary information
+select max(salary) from employees;
+select * from employees where salary=90000;
+select * from employees order by salary desc limit 1;
+
+select * from employees where salary=
+(select max(salary) from employees);
+
+-- Find the employees who is having less than avg salary
+select * from employees where salary <
+(select avg(salary) from employees);
+
+-- Display the employees working in department where avg salary is greater than 80k
+select * from employees where department in(
+select department group by department 
+having avg(salary)>80000);
+
+-- Find the employees who is getting min salary
+select * from employees where salary=
+(select min(salary) from employees);
+
+-- Display the emp whose salary is greater than avg salary of Bangalore employees
+select avg(salary) from employees where location="Bangalore";
+select avg(salary) from employees;
+select avg(experience),location from employees group by location;
+select * from employees where salary >
+(select avg(salary) from employees where location="Bangalore");
+
+-- Display the emp who experience is greater than avg experience of Hyderabad emp
+select * from employees where experience >
+(select avg(experience) from employees where location="Hyderabad");
+
+-- Display the employees working in locations where more than 5 employees
+select count(*),location from employees group by location
+having count(*)>5;
+
+select * from employees where location in (
+select location from employees
+group by location
+having count(emp_id)>5);
+
+-- Joins 
+create table department(
+dept_id int primary key,
+dept_name varchar(15));
+
+create table student(
+s_id int primary key,
+s_name varchar(18),
+dept_id int,
+s_marks int);
+
+insert into department values
+(101,"AI"),
+(102,"ML"),
+(103,"DS"),
+(104,"IT"),
+(105,"DE"),
+(106,"Python");
+
+insert into student values
+(10,"Kasthu",101,90),
+(20,"Renu",null,67),
+(30,"Sowmi",102,null),
+(40,null,104,90),
+(50,"Keerthi",120,98),
+(60,"Preethi",110,45),
+(70,null,null,78),
+(80,"Anu",104,95);
+
+select * from department;
+select * from student;
+-- Inner Join-Gives Common record from both the table
+select s.s_name,d.dept_name,s.s_marks from student s 
+inner join department d 
+on s.dept_id=d.dept_id;
+
+-- Left Join-Retrieves all the records from left side table
+-- ANd Only Matching records from Right side table
+select * from student s left join department d
+on s.dept_id=d.dept_id;
+
+-- Right Join-Retrieves all the records from right side table
+-- And only matching records from left side table
+select * from student s right join department d 
+on s.dept_id=d.dept_id;
+
+-- Cross Join
+-- Student-8 Records,Department-6 records
+-- 8*6=48
+select * from student 
+cross join department;
+select * from student s inner join department d on s.dept_id=d.dept_id;
+-- Example 1: Find students studying in the same department. Self Join
+SELECT
+    s1.s_name AS Student1,
+    s2.s_name AS Student2,
+    s1.dept_id
+FROM student s1
+INNER JOIN student s2
+ON s1.dept_id = s2.dept_id
+WHERE s1.s_id < s2.s_id; -- Prevents duplicates and matching student records display
+
+-- Example 1: Find students having same marks. Self Join
+SELECT
+    s1.s_name AS Student1,
+    s2.s_name AS Student2,
+    s1.s_marks
+FROM student s1
+INNER JOIN student s2
+ON s1.dept_id = s2.dept_id
+WHERE s1.s_marks < s2.s_marks;
 
 
+-- Windows Functions
+-- Row Number,Rank,Dense_Rank,Partition,CTE
 
+-- Display the employee information based on dept_wise
+select department,count(*) from employees
+group by department;
+
+select emp_name,department,location,salary,count(*)
+over (partition by department) as Dept_Count
+from employees;
+
+-- Display the employee information count based on location
+select emp_name,department,location,salary,count(*)
+over (partition by location) as Location_Count
+from employees;
+
+-- Display dept_wise avg salary
+select emp_name,department,location,salary,avg(salary)
+over (partition by department) as Dept_Avg_Sal
+from employees;
+
+-- Display dept_wise max salary
+select emp_name,department,location,salary,max(salary)
+over (partition by department) as Dept_Max_Sal
+from employees;
+
+-- Find the employees earning more than their department average salary
+-- CTE-Common Table Expression
+-- Temporary or Virtual data
+-- From the temporary table we are writing the queries to retrieve
+-- Neat and clean
+-- Avoid the difficulties and complex code
+with CTE as(
+select emp_name,department,location,salary,avg(salary)
+over (partition by department) as Dept_Avg_Sal
+from employees)
+select * from CTE
+where salary>Dept_Avg_Sal;
+-- Sub Queries
+select * from (select emp_name,department,location,salary,avg(salary)
+over (partition by department) as dept_avg_salary 
+from employees) s
+where salary>dept_avg_salary ;
 
 
 
