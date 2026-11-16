@@ -408,27 +408,175 @@ select * from employees;
 
 
 
+use company_db;
+create table department(
+dept_id int primary key,
+dept_name varchar(15));
+
+create table student(
+std_id int primary key,
+s_name varchar(18),
+dept_id int,
+s_marks int);
+
+insert into department values
+(101,"IT"),
+(102,"AI"),
+(103,"DS"),
+(104,"ML"),
+(105,"DA"),
+(106,"DE");
 
 
-    
+insert into student values
+(10,"Anu",101,90),
+(20,null,null,45),
+(30,"Karthik",104,78),
+(40,"Swathi",110,90),
+(50,"Preethi",120,67),
+(60,null,102,56),
+(70,"Swetha",104,null),
+(80,"Anusha",121,78),
+(90,"Prajwal",105,90);
+
+select * from department;
+select * from student;
+
+select * from student s
+inner join department d 
+on s.dept_id=d.dept_id;
+select s.s_name,s.dept_id,d.dept_name 
+from student s inner join department d 
+on s.dept_id=d.dept_id;
+-- Inner join -Retrieve only common record from both tables
+-- Left Join-Retrieve all the records from left table
+-- and only matching records from right table
+select * from student s 
+left join department d 
+on s.dept_id=d.dept_id;
+-- Right Join-Retrieve all the records from Right table
+-- and only matching records from Left table
+select * from student s 
+right join department d 
+on s.dept_id=d.dept_id;
+-- Cross join
+-- Dept-6 records,Student-9 records
+-- 9*6=54
+select * from student 
+cross join department;
+
+-- Find the student information having marks>80 and
+-- in which department
+select s.s_name,d.dept_name,s.s_marks
+from student s inner join department d 
+on s.dept_id=d.dept_id where
+s.s_marks>80;
+-- Find the student information based on marks
+-- lowest to highest
+select s.s_name,d.dept_name,s.s_marks
+from student s inner join department d 
+on s.dept_id=d.dept_id order by s.s_marks;
+
+select s.s_name,d.dept_name,s.s_marks
+from student s inner join department d 
+on s.dept_id=d.dept_id order by s.s_marks desc;
+-- Find the student info in IT dept or ML dept
+select s.s_name,d.dept_name,s.s_marks
+from student s inner join department d 
+on s.dept_id=d.dept_id where d.dept_name="ML"
+and s.s_marks>70;
+
+select s_name  from student
+union all 
+select dept_name from 
+department;
+
+-- Example 1: Find students studying in the same department.
+SELECT
+    s1.s_name AS Student1,
+    s2.s_name AS Student2,
+    s1.dept_id
+FROM student s1
+INNER JOIN student s2
+ON s1.dept_id = s2.dept_id
+WHERE s1.std_id < s2.std_id;
 
 
 
 
+-- Windows Functions
+-- Row Number,Rank,Dense_Rank,Partition
+-- CTE(Common Table Expression)
+
+select department,count(*) from employees group by department;
+
+-- Group the department wise employee information
+select emp_name,salary,department,count(*) 
+over (partition by department) as Dept_Count from 
+employees;
+
+-- Group location wise employee information
+select emp_name,salary,department,location,count(*) 
+over (partition by location) as Location_Count from 
+employees;
+
+-- Row Number-Its kind of Id will get sequential order info
+select emp_name,location,department,salary,
+row_number() over(order by salary) as Row_Num
+from employees;
+
+select * from employees order by salary limit 1;
+
+-- Common Table Expression-Temporary store data
+-- From that we are going to retrieve the ans
+-- Using with keyword
+-- Easy to understand,neat and clean code
+-- to avoid the difficult or complex
+-- Find the lowest paid employee information
+with CTE as(
+select emp_name,location,department,salary,
+row_number() over(order by salary) as Row_Num
+from employees)
+select * from 
+CTE where Row_Num=1;
+-- Find the 3rd lowest employee information
+-- Rank -Skip the order Ex.Same Salary 80000 got two employees
+-- It will assign same rank 80000 as 1 and next 75000 as 3
+select emp_name,location,department,salary,
+rank() over(order by salary desc) as rnk
+from employees;
+-- Dense_rank-Don't skip the order
+select emp_name,location,department,salary,
+dense_rank() over(order by salary desc) as dense_rnk
+from employees;
+-- Find the employee info based on dept highest sal to lowest
+select emp_name,department,experience,salary,rank() over(
+partition by department
+order by salary desc) as Sal_rank
+from employees;
+
+-- Find the highest paid employee in each dept
+with CTE as(
+select emp_name,department,experience,location,salary,
+rank() over(partition by department
+order by salary desc) as Sal_rank
+from employees)
+select * 
+from CTE
+where Sal_rank=1
+order by salary desc;
+
+select department,max(salary) from
+employees group by department;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+-- Create Employee and Department
+-- inner join,left,right,cross,self
+-- Windows Function
+-- Products table using price do order
+-- partition category
+-- Using CTE from all category which is the highest price
 
 
 
