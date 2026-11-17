@@ -511,8 +511,110 @@ from employees) s
 where salary>dept_avg_salary ;
 
 
+use ecommerce;
+select department,count(*) from employees group by department;
+select emp_name,location,department,salary,count(*)
+over (partition by department) as Emp_Dept_Count from employees;
 
+with CTE as (
+select emp_name,location,department,salary,avg(salary)
+over (partition by department) as Avg_Dept_Sal
+ from employees)
+ select * from CTE
+ where salary>Avg_Dept_Sal;
+ 
+ 
+ -- Windows Function-Row Number,Rank,Dense_Rank
+ -- Row Number-Its a kind of ID col,Like as Sequential data
+ 
+ select emp_name,experience,location,department,salary,row_number()
+ over (order by salary desc) as Row_num
+ from employees;
+ 
+ -- Order By Experience asc assign row_num
+ 
+ Select emp_name, experience,location,department, salary, 
+row_number() over (order by experience asc) as Row_num
+from employees;
+ -- Rank-Skip the order suppose 2 person got same salary
+-- Ex:80000-1,80000-1,75000-3
+ Select emp_name, salary,location,department, experience, 
+rank() over (order by experience desc) as rnk
+from employees;
+Select emp_name,location,department, salary, 
+rank() over (order by salary desc) as rnk
+from employees;
+-- Dense Rank-It won't skip the order
+Select emp_name,location,department, salary, 
+dense_rank() over (order by salary desc) as dense_rnk
+from employees;
 
+ 
+ -- Display the rank of employee salary based on dept_wise
+ 
+ select emp_name,location,experience,department,salary,
+ rank() over(partition by department
+ order by salary desc) as Dept_Sal_Rank
+ from employees;
+ 
+ -- Display the rank of employee salary based on location_wise
+ select emp_name,location,experience, department,salary, 
+ rank() over(partition by location order by salary desc) 
+ as loc_sal_rank from employees;
+ 
+ with CTE AS (
+Select emp_name, experience,location,department, salary, 
+dense_rank() over (order by salary desc) as _rank
+from employees
+)
+SELECT * FROM
+ CTE where location = "Chennai";
+ 
+ 
+ -- Find the employee in each dept who is getting highest salary
+ 
+ with CTE as (
+ select emp_name,location,department,salary,
+ rank() over(partition by department
+ order by salary desc) as Dept_Sal_Rank
+ from employees)
+ select * from CTE
+ where Dept_Sal_Rank=1;
+ -- Find the employee third highest salary in each department
+ with CTE as (
+ select emp_name,location,department,salary,
+ rank() over(partition by department
+ order by salary desc) as Dept_Sal_Rank
+ from employees)
+ select * from CTE
+ where Dept_Sal_Rank=3;
+ 
+ -- Find the employee highest paid salary in each location
+ 
+with CTE as(
+select emp_name,location,department,salary,rank()
+over (partition by location order by salary desc)
+ as Location_Sal_Rank from employees)
+select * from CTE where Location_Sal_Rank=1;
+
+-- Find the top 3 highest paid employee in each dept
+with CTE as (
+	select emp_name, experience,location,department, salary,
+	dense_rank() over (partition by department order by salary desc) as dpt_sal_rank
+	from employees
+) 
+Select * from CTE where dpt_sal_rank<=3;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 
 
