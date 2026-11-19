@@ -35,9 +35,9 @@ MONGO Queries-
 	14.Find
 		-db.student.find()-TO display all
 	15.Findone
-		-db.student.findOne({score:{$gt:80}})
-	Greater than-gt,gte
-	Less than-lt,lte
+		-db.student.findOne({score:{$gt:80}}
+	Greater than-gt,gte-greater than equal
+	Less than-lt,lte-less than equal				
 	Not Equal-ne
 	equal-eq
 	16.And
@@ -61,13 +61,14 @@ MONGO Queries-
 	24.Find the 1st highest Salary
 		db.stud.find().sort({"Salary":-1}.limit(1)
 	25.Rename Name to emp_name
-		db.stud.updateOne({"Id":10},{$rename:{"Name":"Emp_Name"}})
+		db.stud.updateOne({"Id":10},{$I:{"Name":"Emp_Name"}})
 	25.Increase Salary 5000
 		db.stud.updateOne({"Id":10},{$inc:{"Salary":5000}})
 	26.Upsert-Update and Insert
 		db.student.updateOne({"Id:60},{"$set:{"Name":"Anu",
 		Place:"Bangalore"}},{upsert:true})
-
+	27.Find the top most department maximum salary
+		db.employee.aggregate([{$group:{_id:"$location",max_salary:{$max:"$salary"}}},{$sort:{max_salary:-1}},{$limit:1}])
 
 
 
